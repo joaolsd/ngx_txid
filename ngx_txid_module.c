@@ -121,7 +121,8 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
     const u_char rbuf[4]; /* an unsigned 32 bit rand space */
     const int len = 4;   /* its 4 */
     const int umaxlen = 11;	    /* 2^32-1 as a decimal, 10 chars, plus \0 */
-    const size_t n = ngx_txid_get_entropy(&rbuf, len);
+
+    ngx_txid_get_entropy((unsigned char *)&rbuf, len);
 
     u_char *out = ngx_pnalloc(r->pool, umaxlen);
     if (out == NULL) {
@@ -130,7 +131,7 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
         return NGX_ERROR;
     }
 
-    snprintf(out, umaxlen, "%02x%02x%02x%02x", rbuf[0], rbuf[1], rbuf[2], rbuf[3]);
+    snprintf((char *)out, umaxlen, "%02x%02x%02x%02x", rbuf[0], rbuf[1], rbuf[2], rbuf[3]);
 
     v->len = umaxlen -1;
     v->data = out;
