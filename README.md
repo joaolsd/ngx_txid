@@ -3,16 +3,13 @@ Overview
 
 `ngx_txid` is a module that exposes `$txid`: a cached, request scoped, 20
 character, base32hex encoded, temporally and lexically sortable, case
-insensitive, 96 bit identifier.
+insensitive, 96 bit identifier. (see https://github.com/streadway/ngx_txid)
 
 Use `$txid` to correlate logs or upstream requests.
 
 
-this modified version adds a txrnd which is the bottom 4 bytes of the txid,
-expressed in hex. THis is a weak random label, but usefully short. It is constructed
-using the already open binding to /dev/urandom, and so does not uneccessarily create
-extra state. It does not alter the entropy settings of the txid but it may interfere
-with it, in ways not well understood.
+This modified version modifies our previous txrnd to be the hex representation of the client's IPv4 address.
+It does not alter the entropy settings of the txid.
 
 Build
 =====
