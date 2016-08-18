@@ -125,13 +125,14 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
     // const u_char rbuf[4]; /* an unsigned 32 bit rand space */
     // const int len = 4;   /* its 4 */
     // const int umaxlen = 11;      /* 2^32-1 as a decimal, 10 chars, plus \0 */
+    const int umaxlen = 9;
 
     // ngx_txid_get_entropy((unsigned char *)&rbuf, len);
 
     addr.sockaddr = r->connection->sockaddr;
     addr.socklen = r->connection->socklen;
 
-    u_char *out = ngx_pnalloc(r->pool, 9);
+    u_char *out = ngx_pnalloc(r->pool, umaxlen);
     if (out == NULL) {
         v->valid = 0;
         v->not_found = 1;
@@ -140,12 +141,12 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
 
     switch (addr.sockaddr->sa_family) {
       case AF_INET6:
-        snprintf((char *)out, 8, "%02x%02x%02x%02x", 1, 2, 3, 4);
+        snprintf((char *)out, umaxlen, "%02x%02x%02x%02x", 1, 2, 3, 4);
         break;
       case AF_INET:
         sin = (struct sockaddr_in *) addr.sockaddr;
         src_addr = ntohl(sin->sin_addr.s_addr);
-        snprintf((char *)out, 8, "%08x", src_addr);
+        snprintf((char *)out, umaxlen, "%08x", src_addr);
         break;
     }
 
