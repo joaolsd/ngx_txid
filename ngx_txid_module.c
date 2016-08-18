@@ -141,7 +141,7 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
 
     switch (addr.sockaddr->sa_family) {
       case AF_INET6:
-        snprintf((char *)out, umaxlen, "%02x%02x%02x%02x", 1, 2, 3, 4);
+        snprintf((char *)out, umaxlen, "%02x%02x%02x%02x", 10, 2, 3, 4);
         break;
       case AF_INET:
         sin = (struct sockaddr_in *) addr.sockaddr;
