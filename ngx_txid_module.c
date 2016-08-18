@@ -131,7 +131,7 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
     addr.sockaddr = r->connection->sockaddr;
     addr.socklen = r->connection->socklen;
 
-    u_char *out = ngx_pnalloc(r->pool, umaxlen);
+    u_char *out = ngx_pnalloc(r->pool, 9);
     if (out == NULL) {
         v->valid = 0;
         v->not_found = 1;
