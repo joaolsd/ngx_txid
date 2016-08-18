@@ -122,14 +122,14 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
     ngx_addr_t                  addr;
     struct sockaddr_in         *sin;
 
-    const u_char rbuf[4]; /* an unsigned 32 bit rand space */
-    const int len = 4;   /* its 4 */
+    // const u_char rbuf[4]; /* an unsigned 32 bit rand space */
+    // const int len = 4;   /* its 4 */
     const int umaxlen = 11;	    /* 2^32-1 as a decimal, 10 chars, plus \0 */
 
     // ngx_txid_get_entropy((unsigned char *)&rbuf, len);
 
-    addr->sockaddr = r->connection->sockaddr;
-    addr->socklen = r->connection->socklen;
+    addr.sockaddr = r->connection->sockaddr;
+    addr.socklen = r->connection->socklen;
 
     u_char *out = ngx_pnalloc(r->pool, umaxlen);
     if (out == NULL) {
@@ -139,7 +139,6 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, uintptr_t dat
     }
 
     switch (addr.sockaddr->sa_family) {
-#if (NGX_HAVE_INET6)
       case AF_INET6:
         snprintf((char *)out, umaxlen, "%02x%02x%02x%02x", 0, 0, 0, 0);
         break;
