@@ -227,7 +227,7 @@ static ngx_int_t ngx_txid_add_variables(ngx_conf_t *cf)
 
   var->get_handler = ngx_txid_get;
 
-  ngx_http_variable_t* var = ngx_http_add_variable(
+  ngx_http_variable_t* varnd = ngx_http_add_variable(
           cf,
           &ngx_txrnd_variable_name,
           NGX_HTTP_VAR_NOHASH);
@@ -238,7 +238,7 @@ static ngx_int_t ngx_txid_add_variables(ngx_conf_t *cf)
 
   varnd->get_handler = ngx_txrnd_get;
 
-  ngx_http_variable_t* var = ngx_http_add_variable(
+  ngx_http_variable_t* varad = ngx_http_add_variable(
           cf,
           &ngx_txad_variable_name,
           NGX_HTTP_VAR_NOHASH);
