@@ -243,11 +243,11 @@ static ngx_int_t ngx_txid_add_variables(ngx_conf_t *cf)
           &ngx_txad_variable_name,
           NGX_HTTP_VAR_NOHASH);
 
-  if (varnd == NULL) {
+  if (varad == NULL) {
       return NGX_ERROR;
   }
 
-  varnd->get_handler = ngx_txad_get;
+  varad->get_handler = ngx_txad_get;
 
   return NGX_OK;
 }
