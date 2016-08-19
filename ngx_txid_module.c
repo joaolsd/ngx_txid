@@ -124,7 +124,7 @@ ngx_txad_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, \
   ngx_addr_t          addr;
   struct sockaddr_in *sin;
   
-  const int umaxlen = 9; // 8 chars + null
+  int umaxlen = 9; // 8 chars + null
   
 
   addr.sockaddr = r->connection->sockaddr;
@@ -139,6 +139,7 @@ ngx_txad_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, \
 
   switch (addr.sockaddr->sa_family) {
     case AF_INET6:
+      umaxlen = 5; // 4 chars + null
       snprintf((char *)out, umaxlen, "IPv6");
       break;
     case AF_INET:
