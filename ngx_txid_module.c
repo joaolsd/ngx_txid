@@ -139,8 +139,7 @@ ngx_txad_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, \
 
   switch (addr.sockaddr->sa_family) {
     case AF_INET6:
-      umaxlen = 5; // 4 chars + null
-      snprintf((char *)out, umaxlen, "IPv6");
+      snprintf((char *)out, umaxlen, "00000000");
       break;
     case AF_INET:
       sin = (struct sockaddr_in *) addr.sockaddr;
@@ -165,7 +164,7 @@ ngx_txrnd_get(ngx_http_request_t *r, ngx_http_variable_value_t *v, \
 
   const u_char rbuf[4]; /* an unsigned 32 bit rand space */
   const int len = 4;   /* its 4 */
-  const int umaxlen = 11;	    /* 2^32-1 as a decimal, 10 chars, plus \0 */
+  const int umaxlen = 9;	    /* 2^32-1 as a decimal, 10 chars, plus \0 */
 
   ngx_txid_get_entropy((unsigned char *)&rbuf, len);
 
