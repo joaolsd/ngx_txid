@@ -27,17 +27,21 @@ ngx_txid_base32_encode(unsigned char *dst, unsigned char *src, size_t len) {
         default:
             dst[7] |= src[4] & 0x1F;
             dst[6] |= src[4] >> 5;
+            __attribute__((fallthrough));
         case 4:
             dst[6] |= (src[3] << 3) & 0x1F;
             dst[5] |= (src[3] >> 2) & 0x1F;
             dst[4] |= src[3] >> 7;
+            __attribute__((fallthrough));
         case 3:
             dst[4] |= (src[2] << 1) & 0x1F;
             dst[3] |= (src[2] >> 4) & 0x1F;
+            __attribute__((fallthrough));
         case 2:
             dst[3] |= (src[1] << 4) & 0x1F;
             dst[2] |= (src[1] >> 1) & 0x1F;
             dst[1] |= (src[1] >> 6) & 0x1F;
+            __attribute__((fallthrough));
         case 1:
             dst[1] |= (src[0] << 2) & 0x1F;
             dst[0] |= src[0] >> 3;
